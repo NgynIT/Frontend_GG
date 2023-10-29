@@ -40,9 +40,9 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: 
-    // <RequireAuth>
+     <RequireAuth>
       <Root />
-    // </RequireAuth>
+     </RequireAuth>
     ,
     errorElement: <ErrorPage />,
     children: [
@@ -111,7 +111,7 @@ function AuthProvider({ children }) {
       }
 
       
-      callback;
+      callback("/DashBoard", {replace : true});
     });
   };
 

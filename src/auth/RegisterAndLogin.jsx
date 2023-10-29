@@ -27,7 +27,33 @@ import {
   import { provider } from './../firebaseConfig';
 import { useState } from 'react';
 
+
 const RegisterAndLogin = () => {
+    //css
+    const cardStyle = {
+        width: '100%',
+        maxWidth: '50%', 
+        padding: '20px',
+        margin: '0 auto', 
+        marginTop: 'calc(50vh - 200px)' 
+      };
+    
+      const signInButtonsStyle = {
+        display: 'flex',
+        justifyContent: 'space-between',
+        marginBottom: '10px',
+      };
+    
+      const inputStyle = {
+        width: '100%',
+        marginBottom: '10px',
+      };
+    
+      const linkStyle = {
+        cursor: 'pointer',
+        color: 'blue',
+      };
+      //////////////////////////////////
 
     const [login, setLogin] = React.useState(false);
     let authStore = useAuth();
@@ -52,8 +78,8 @@ const RegisterAndLogin = () => {
                  console.log(data, "authData");
                  // dispath
                 localStorage.setItem('name',  data?.user.email);
-                authStore.signin(data, navigate("/DashBoard", { replace: true }));
-                navigate("/DashBoard", { replace: true })
+                authStore.signin(data, navigate);
+                // navigate("/DashBoard", { replace: true })
                 //authStore.setUser(data.user.email);
              })
              .catch((err) => {
@@ -152,15 +178,13 @@ const RegisterAndLogin = () => {
     }
 
     return <>
-        <Row>
-            <Col span={16}>
-            </Col>
-            <Col span={10}>
-                <Space direction="vertical" size={16}>
-                    <Card extra={<a href="#">More</a>}>
-                        <div className="">
-                            {/* Registration and login Screen */}
-                            <div className="row">
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Row>
+        <Col span={24}>
+          <Space direction="vertical" size={16}>
+            <Card extra={<a href="#">More</a>} style={cardStyle}>
+              <div className="">
+                <div style={signInButtonsStyle}>
                                 <div
                                     className={login == false ? "activeColor" : "pointer"}
                                     onClick={() => setLogin(false)}
@@ -181,7 +205,7 @@ const RegisterAndLogin = () => {
                                 <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
                             </div>
                             <h1>{login ? "SignIn" : "SignUp"}</h1>
-                            <form onSubmit={(e) => handleSubmit(e, login ? "signin" : "signup")}>
+                             <form onSubmit={(e) => handleSubmit(e, login ? "signin" : "signup")} className="sign-in-form">
                                 <input name="email" placeholder="Email" />
                                 <br />
                                 <input name="password" type="text" placeholder="Password" />
@@ -195,7 +219,7 @@ const RegisterAndLogin = () => {
                 </Space>
             </Col>
         </Row>
-
+    </div>
     </>
 }
 
