@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+
 import './index.css';
 import {
   createBrowserRouter,
@@ -8,7 +9,7 @@ import {
 } from "react-router-dom";
 import Root from './routes/root.jsx';
 import ErrorPage from './error-page.jsx';
-import { Dasboard } from './components/DashBoard';
+import { DashBoard } from './components/DashBoard';
 import Tablecp from './table/Table.jsx';
 import AddItemTable from './table/AddItemTable';
 
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "DashBoard",
-        element: <Dasboard />,
+        element: <DashBoard />,
       },
       {
         path: "Form",
@@ -77,6 +78,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       {/* children */}
       <Provider store={store}>
         <RouterProvider router={router} />
+        
       </Provider>
     </AuthProvider>
   </React.StrictMode>,

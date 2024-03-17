@@ -31,28 +31,20 @@ import { useState } from 'react';
 const RegisterAndLogin = () => {
     //css
     const cardStyle = {
-        width: '100%',
-        maxWidth: '50%', 
-        padding: '20px',
-        margin: '0 auto', 
-        marginTop: 'calc(50vh - 200px)' 
+        width: '60%',
+        maxWidth: '70%', 
+        padding: '10px',
+        margin: '150px', 
+        marginTop: 'calc(10vh - 200px)' 
       };
     
       const signInButtonsStyle = {
         display: 'flex',
         justifyContent: 'space-between',
-        marginBottom: '10px',
+        marginBottom: '20px',
       };
     
-      const inputStyle = {
-        width: '100%',
-        marginBottom: '10px',
-      };
-    
-      const linkStyle = {
-        cursor: 'pointer',
-        color: 'blue',
-      };
+      
       //////////////////////////////////
 
     const [login, setLogin] = React.useState(false);

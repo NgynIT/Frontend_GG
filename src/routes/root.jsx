@@ -4,7 +4,7 @@ import {
   SyncOutlined,
   DashboardOutlined,
 } from "@ant-design/icons";
-
+import "./root.css";
 import { Outlet, Link, useNavigate, useLocation ,Navigate} from "react-router-dom";
 import { useAuth } from "./../main";
 
@@ -17,7 +17,8 @@ export default function Root() {
   return (
     <>
       <div id="sidebar">
-        <h1>React Router Contacts</h1>
+        <h1>Contact info phone: 0393204904  Gmail: nguyennpcoder@gmail.com</h1>
+        
         <div>
           <form id="search-form" role="search">
             <input
@@ -31,7 +32,7 @@ export default function Root() {
             <div className="sr-only" aria-live="polite"></div>
           </form>
           <form method="post">
-            <button type="submit">New</button>
+            <button type="submit">News</button>
           </form>
         </div>
         <nav>
@@ -51,13 +52,13 @@ export default function Root() {
             <li>
               <Link to={`/Table`}>
                 <SmileOutlined style={{ fontSize: "16px", color: "green" }} />
-                Table
+                List User
               </Link>
             </li>
             <li>
               <Link to={`/ListUser`}>
                 <SyncOutlined style={{ fontSize: "16px", color: "black" }} />
-                List User
+                User
               </Link>
             </li>
           </ul>

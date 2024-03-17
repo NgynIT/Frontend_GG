@@ -10,6 +10,7 @@ import EditTable from './EditTable';
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement } from './../features/counter/counterReducer';
+import "./table.css"
 
 const { confirm } = Modal;
 
@@ -57,7 +58,8 @@ const TableCp = () => {
             title: 'Age',
             dataIndex: 'age',
             key: 'age',
-        },
+            
+          },
         {
             title: 'Address',
             dataIndex: 'address',
@@ -104,7 +106,7 @@ const TableCp = () => {
 
     const showDeleteConfirm = (item) => {
         confirm({
-            title: `Are you sure delete this ${item?.name}?`,
+            title: `Bạn có chắc chắn muốn xóa ${item?.name} không?`,
             //title: <TestA />,
             icon: <ExclamationCircleFilled />,
             content: `address: ${item?.address} - age: ${item?.age}`,
@@ -125,7 +127,7 @@ const TableCp = () => {
         if (itemTable?.id) {
             axios.delete(api + `/${itemTable?.id}`).then(res => {
                 apiCall();
-            }).catch(err => console.log('xoa ban ghi khong thanh cong ' + err));
+            }).catch(err => console.log('Xóa bản ghi thành công ' + err));
         }
     }
 
@@ -151,30 +153,29 @@ const TableCp = () => {
 
     return <>
         <div>
-            <h4>Danh sách sản phẩm {count}</h4>
-            <button
-                aria-label="Increment value"
-                onClick={() => dispatch(increment())}
-            >
-                Increment
-            </button>
+            <h4>Danh sách User {count}</h4>
+            
             <NavLink to="/addItemTable">
                 <Tag color={'blue'}>
                     Thêm mới
                 </Tag>
             </NavLink>
         </div>
-        {data.length > 0 && <Table
-            columns={columns}
-            dataSource={data}
-            scroll={{ x: 1000, y: 600 }}
-        />}
+        {data.length > 0 && (
+        <Table
+          columns={columns}
+          dataSource={data}
+          scroll={{ x: 1000, y: 600 }}
+        //   rowClassName={(record) => (record.age % 2 === 1 ? 'color' : '')}
+        />
+      )}
         {/* modal show here */}
         <EditTable isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
             itemDetail={itemDetail}
             setItemDetail={setItemDetail}
             callBackUpdate={editTableApi}
         />
+        
     </>
 };
 export default TableCp;

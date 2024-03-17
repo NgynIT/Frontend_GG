@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./EditTable.css";
 import "./AddItemTable.css";
 
+
 const AddItemTable = () => {
    
     // khai bao tham chieu
@@ -31,8 +32,19 @@ const AddItemTable = () => {
 
         // validate data
         if (!name || !age || !address || !tags) {
-            alert('Please fill all fields');
+            alert('Vui lòng không bỏ trống');
             return;
+        }
+        //
+        if (name.length < 10 || name.length > 15) {
+          alert('Name phải từ 10 đến 15 ký tự !!');
+          return;
+        }
+    
+        const ageNumber = parseInt(age, 10);
+        if (isNaN(ageNumber) || ageNumber < 1 || ageNumber > 100) {
+          alert('Age phải từ 1 đến 100 tuổi !!');
+          return;
         }
 
         // Thong bao
@@ -58,7 +70,7 @@ const AddItemTable = () => {
     }
 
     return <>
-        <h4>Thêm mới item Table</h4>
+        <h4>Add Item Table</h4>
         <div className='styleInput'>
             <input ref={nameRef} name="name" placeholder='name' />
             <input ref={ageRef} name="age" placeholder='age' />

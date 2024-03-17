@@ -29,7 +29,7 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 const auth = getAuth();
 auth.languageCode = 'it';
 // provider.setCustomParameters({
-//   'login_hint': 'vuvantienhd96@gmail.com'
+//   'login_hint': 'nkockik@gmail.com'
 // });
 
 

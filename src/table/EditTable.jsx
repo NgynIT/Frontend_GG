@@ -46,7 +46,7 @@ const EditTable = ({
     };
 
     return <>
-      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title="Update user" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <div className='styleInput'>
             <input value={name} name="name" placeholder='name' onChange={(e) => setName(e.target.value)}/>
             <input value={age} name="age" placeholder='age' onChange={(e) => setAge(e.target.value)}/>
