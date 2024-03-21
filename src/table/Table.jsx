@@ -165,7 +165,7 @@ const TableCp = () => {
         <Table
           columns={columns}
           dataSource={data}
-          scroll={{ x: 1000, y: 600 }}
+          scroll={{ x: 1000, y: 500 }}
         //   rowClassName={(record) => (record.age % 2 === 1 ? 'color' : '')}
         />
       )}

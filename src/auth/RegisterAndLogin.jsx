@@ -26,27 +26,9 @@ import {
   } from '@ant-design/icons';
   import { provider } from './../firebaseConfig';
 import { useState } from 'react';
-
+import"./login.css"
 
 const RegisterAndLogin = () => {
-    //css
-    const cardStyle = {
-        width: '60%',
-        maxWidth: '70%', 
-        padding: '10px',
-        margin: '150px', 
-        marginTop: 'calc(10vh - 200px)' 
-      };
-    
-      const signInButtonsStyle = {
-        display: 'flex',
-        justifyContent: 'space-between',
-        marginBottom: '20px',
-      };
-    
-      
-      //////////////////////////////////
-
     const [login, setLogin] = React.useState(false);
     let authStore = useAuth();
     let navigate = useNavigate();
@@ -131,12 +113,11 @@ const RegisterAndLogin = () => {
         // const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+        
     });
 
 
-    }
-
+}
     const signOutGG = () => {
         const auth = getAuth();
         signOut(auth).then(() => {
@@ -170,48 +151,61 @@ const RegisterAndLogin = () => {
     }
 
     return <>
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Row>
-        <Col span={24}>
-          <Space direction="vertical" size={16}>
-            <Card extra={<a href="#">More</a>} style={cardStyle}>
-              <div className="">
-                <div style={signInButtonsStyle}>
-                                <div
-                                    className={login == false ? "activeColor" : "pointer"}
-                                    onClick={() => setLogin(false)}
-                                >
-                                    SignUp
-                                </div>
-                                <div
-                                    className={login == true ? "activeColor" : "pointer"}
-                                    onClick={() => setLogin(true)}
-                                >
-                                    SignIn
-                                </div>
+   <div className='contair'>
+  <Row>
+    <Col span={24}>
+      <Space direction="vertical" size={16}>
+        <Card extra={<a href="#">From Login</a>} style={{width: '100%', maxWidth: '500px', padding: '10px', margin: 'auto', marginTop: 'calc(50vh - 280px)'}}>
+          <div>
+            <div className="signInButtons">
+                <button
+                    className={login ? "pointer" : "activeColor"}
+                    onClick={() => setLogin(false)}
+                >
+                    Register
+                </button>
+                <button
+                    className={login ? "activeColor" : "pointer"}
+                    onClick={() => setLogin(true)}
+                >
+                    LogIn
+                </button>
+                </div>
+            <h1>{login ? "LogIn" : "Register"}</h1>
 
-                                <button onClick={() => signInG()}><GoogleOutlined style={{ color: 'hotpink' }}/></button>
-                               
-                                <button onClick={() => signOutGG()}>SIGNOUT<GoogleOutlined style={{ color: 'hotpink' }}/></button>
-                                <button onClick={() => forgotGG()}>fogot pass<GoogleOutlined style={{ color: 'hotpink' }}/></button>
-                                <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-                            </div>
-                            <h1>{login ? "SignIn" : "SignUp"}</h1>
-                             <form onSubmit={(e) => handleSubmit(e, login ? "signin" : "signup")} className="sign-in-form">
-                                <input name="email" placeholder="Email" />
-                                <br />
-                                <input name="password" type="text" placeholder="Password" />
-                                <br />
-                                <p onClick={handleReset}>Forgot Password?</p>
-                                <br />
-                                <button>{login ? "SignIn" : "SignUp"}</button>
-                            </form>
-                        </div>
-                    </Card>
-                </Space>
-            </Col>
-        </Row>
-    </div>
+            <form onSubmit={(e) => handleSubmit(e, login ? "signin" : "signup")} className="sign-in-form">
+              <input name="email" placeholder="Email" />
+              <br />
+              <input name="password" type="text" placeholder="Password" />
+              <br />
+              <p onClick={handleReset}>Forgot Password?</p>
+              <br />
+              <button>{login ? "LogIn" : "Register"}</button>
+            </form> <br></br>
+            {/*  */}
+            <div class="signInButtons">
+              <button onClick={() => signInG()} class="googleButton">
+                Sign In with Google
+                <GoogleOutlined style={{ color: '#4285f4' }} />
+              </button>
+              <button onClick={() => signOutGG()} class="googleButton">
+                SIGN OUT
+                <GoogleOutlined style={{ color: '#4285f4' }} />
+              </button>
+              <button onClick={() => forgotGG()} class="googleButton">
+                Forgot Password
+                <GoogleOutlined style={{ color: '#4285f4' }} />
+              </button>
+            </div>
+
+            <input name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+          </div>
+        </Card>
+      </Space>
+    </Col>
+  </Row>
+</div>
+
     </>
 }
 

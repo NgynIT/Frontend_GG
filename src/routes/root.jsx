@@ -17,7 +17,8 @@ export default function Root() {
   return (
     <>
       <div id="sidebar">
-        <h1>Contact info phone: 0393204904  Gmail: nguyennpcoder@gmail.com</h1>
+        <h1>Contact info phone: 0393204904 
+          Gmail: nguyennpcoder@gmail.com</h1>
         
         <div>
           <form id="search-form" role="search">
