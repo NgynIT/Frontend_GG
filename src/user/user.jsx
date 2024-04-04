@@ -1,48 +1,45 @@
 import React, { useState, useEffect } from 'react';
-
-import { app, provider } from '../firebaseConfig'; 
 import { getAuth, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom'; // Thêm dòng này để sử dụng useNavigate
 import './user.css';
-
-
+import { app, provider } from '../firebaseConfig';  
 
 const User = () => {
     const [user, setUser] = useState(null);
     const auth = getAuth(app);
-  
+    let navigate = useNavigate(); // Tạo instance của useNavigate
+
     useEffect(() => {
-      // Bắt sự kiện người dùng đăng nhập
       const unsubscribe = onAuthStateChanged(auth, currentUser => {
         setUser(currentUser);
       });
-  
-      // Hủy đăng ký sự kiện khi component bị hủy
+
       return () => unsubscribe();
     }, [auth]);
-  
+
     const handleLogin = async () => {
       try {
-        // Đăng nhập bằng Google
         await signInWithPopup(auth, provider);
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     const handleLogout = async () => {
       try {
-        // Đăng xuất
         await signOut(auth);
+        navigate('/login'); // Thêm dòng này để điều hướng người dùng đến trang đăng nhập
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     return (
       <div className="user-container">
         {user ? (
           <div>
-            <p>Tên người dùng: {user.displayName}</p>
+            <h3>Hello User Welcome to my website!</h3>
+            <p>UserName: {user.displayName}</p>
             <p>Email: {user.email}</p>
             <button onClick={handleLogout}>Đăng xuất</button>
           </div>
@@ -51,6 +48,6 @@ const User = () => {
         )}
       </div>
     );
-  };
-  
-  export default User;
+};
+
+export default User;

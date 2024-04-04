@@ -5,8 +5,8 @@
     align-items: center;
     justify-content: center;
     height: 100px;
-    max-width: 280px; 
-    margin-top: 30px;
+    max-width: 300px; 
+    margin-top: 50px;
   }
   
   .user-container button {
@@ -24,3 +24,13 @@
     background-color: #5aa0ec;
   }
   
+.user-container h3,
+.user-container p {
+  white-space: nowrap; /* Ngăn không cho chữ tự động xuống dòng */
+  overflow: hidden; /* Ẩn text nếu quá dài và không vừa với khối chứa */
+  text-overflow: ellipsis; /* Hiển thị dấu ba chấm ở cuối nếu text bị cắt */
+}
+
+.user-container p {
+  max-width: 100%; /* Cho phép text trải dài 100% chiều rộng container */
+}
