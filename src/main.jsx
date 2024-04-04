@@ -20,6 +20,7 @@ import Form from './forms/form.jsx';
 import RequireAuth from './auth/RequireAuth';
 import {fakeAuthProvider} from './auth/auth';
 import RegisterAndLogin from './auth/RegisterAndLogin';
+import User from './user/user.jsx';
 
 import {
   Routes,
@@ -65,7 +66,7 @@ const router = createBrowserRouter([
       },
       {
         path: "ListUser",
-        element: <h2>List User</h2>,
+        element: <User/>,
       },
     ],
   },

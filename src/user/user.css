@@ -1,0 +1,26 @@
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    max-width: 280px; 
+    margin-top: 30px;
+  }
+  
+  .user-container button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #3925f3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .user-container button:hover {
+    background-color: #5aa0ec;
+  }
+  
