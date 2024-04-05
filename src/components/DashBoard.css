@@ -53,6 +53,7 @@
     background-color: rgb(132, 102, 72);
     width: 1130px;
     height: 60px;
+
   }
   
   b .menu ul {
@@ -64,7 +65,7 @@
   b .menu li {
     float: left;
     margin-right: 40px; 
-    margin-left: 20px;
+    margin-left: 1px; /* Di chuyển qua trái 1px */
     line-height: 30px;
     padding: 0;
   }
@@ -73,6 +74,7 @@
     text-decoration: none;
     color: rgb(211, 82, 8);
   }
+  
   .container {
     position: relative;
     

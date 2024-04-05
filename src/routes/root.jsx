@@ -45,9 +45,9 @@ export default function Root() {
               </Link>
             </li>
             <li>
-              <Link to={`/Form`}>
+              <Link to={`/Contact`}>
                 <SettingFilled style={{ fontSize: "16px", color: "blue" }} />
-                Form
+                Contact
               </Link>
             </li>
             <li>

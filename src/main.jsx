@@ -15,8 +15,7 @@ import AddItemTable from './table/AddItemTable';
 
 import store from './store';
 import { Provider } from 'react-redux';
-
-import Form from './forms/form.jsx';
+import EditContact from './routes/contact.jsx';
 import RequireAuth from './auth/RequireAuth';
 import {fakeAuthProvider} from './auth/auth';
 import RegisterAndLogin from './auth/RegisterAndLogin';
@@ -53,8 +52,8 @@ const router = createBrowserRouter([
         element: <DashBoard />,
       },
       {
-        path: "Form",
-        element: <Form/>,
+        path: "Contact",
+        element: <EditContact />,
       },
       {
         path: "Table",

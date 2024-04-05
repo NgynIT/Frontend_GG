@@ -153,7 +153,7 @@ const TableCp = () => {
 
     return <>
         <div>
-            <h4>Danh sách User {count}</h4>
+            <h4>List User {count}</h4>
             
             <NavLink to="/addItemTable">
                 <Tag color={'blue'}>
