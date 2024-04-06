@@ -1,14 +1,15 @@
 /* styles.css */
 
-.container {
-    display: flex;
-    justify-content: center;
-  }
+.containerr {
+  display: flex;
+  justify-content: center;
+  background-color: #fff; /* Thay đổi màu nền thành màu trắng */
+}
   
   .form-container {
     width: 50%;
     padding: 20px;
-    border: 1px solid #ff19e8;
+    border: 1px solid #000000;
     border-radius: 5px;
   }
   
@@ -54,7 +55,7 @@
     width: 50%;
     padding: 20px;
     margin-left: 20px;
-    border: 1px solid #2fffdc;
+    border: 1px solid #000000;
     border-radius: 5px;
   }
   
