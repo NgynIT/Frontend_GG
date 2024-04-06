@@ -46,7 +46,7 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=c4c588b1848f44c8a6f61487fee4b733`);
         if (response.ok) {
           const data = await response.json();
           setArticles(data.articles);
@@ -57,19 +57,20 @@ export const DashBoard = () => {
         console.error('Error fetching news:', error);
       }
     };
-
+  
     fetchNews();
   }, []);
-//search
-const handleSearch = async () => {
+  
+  //search
+  const handleSearch = async () => {
     if (searchTerm.trim() === '') {
       setSearchResults([]); // Reset search results if search term is empty
       setSelectedMenu('News'); // Reset selected menu to 'News'
       return;
     }
-
+  
     try {
-      const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(searchTerm)}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+      const response = await fetch(`https://newsapi.org/v2/everything?q=${encodeURIComponent(searchTerm)}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=c4c588b1848f44c8a6f61487fee4b733`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.articles);
@@ -80,11 +81,12 @@ const handleSearch = async () => {
       console.error('Error fetching news:', error);
     }
   };
-//menu
+  
+  //menu
   useEffect(() => {
     const fetchMenuArticles = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${selectedMenu}&apiKey=c4c588b1848f44c8a6f61487fee4b733`);
         if (response.ok) {
           const data = await response.json();
           setMenuArticles(data.articles);
@@ -95,9 +97,10 @@ const handleSearch = async () => {
         console.error('Error fetching menu articles:', error);
       }
     };  
-
+  
     fetchMenuArticles();
   }, [selectedMenu]);
+  
 
   const handleMenuClick = (menu) => {
     setSelectedMenu(menu); // Update selected menu

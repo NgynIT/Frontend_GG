@@ -25,9 +25,9 @@ export const analytics = getAnalytics(app);
 
 //setup google
 export const provider = new GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-const auth = getAuth();
-auth.languageCode = 'it';
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly');//cho phep doc danh ba gg
+const auth = getAuth(); //cung cap Firebase SDK
+auth.languageCode = 'it';//gui tin nhan xac thuc 
 // provider.setCustomParameters({
 //   'login_hint': 'nkockik@gmail.com'
 // });
