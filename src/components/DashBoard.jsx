@@ -5,29 +5,13 @@ import logo from './img/logo-bao-moi.png';
 import img from './img/img.jpg';
 import img1 from './img/img1.jpg';
 import img2 from './img/img2.jpg';
-import img3 from './img/img3.jpg';
+import img3 from  './img/img3.jpg';
 import img4 from './img/img4.jpg';
 import img6 from './img/img6.jpg';
 import img7 from './img/img7.jpg';
 
 import { fetchUserById } from './../features/apiSave/recallApiLoading';
 import { useSelector, useDispatch } from 'react-redux';
-import firebase from 'firebase/compat/app'; // Import firebase
-import 'firebase/firestore';
-const firebaseConfig = {
-  apiKey: "AIzaSyDWmx6mkXkLxdqrN-we0zFv1QOrKkrqrZ4",
-  authDomain: "ngynit-72054.firebaseapp.com",
-  projectId: "ngynit-72054",
-  storageBucket: "ngynit-72054.appspot.com",
-  messagingSenderId: "1044035795487",
-  appId: "1:1044035795487:web:8e908bd0b6fb4c1546f32a",
-  measurementId: "G-3YQQER0TX6"
-};
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
 
 export const DashBoard = () => {
   const dispatch = useDispatch();
@@ -41,20 +25,23 @@ export const DashBoard = () => {
     }
   }, [test, dispatch]);
 
+  // Define carouselData
+  const carouselData = [img, img1, img2, img3, img4, img6, img7];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveIndex((current) => (current + 1) % carouselData.length);
-    }, 1000); // Rotate every 1 second
+      setCurrentIndex(prevIndex => (prevIndex + 1) % carouselData.length);
+    }, 1000); // Rotate every 1 seconds
+
     return () => clearInterval(interval);
-  }, []);
+  }, [carouselData.length]); // Update when carouselData.length changes
 
-  // Firebase Firestore
-  const firestore = firebase.firestore();
+  // Remainder of your component code...
 
-  // API news
-
+  //api news
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedMenu, setSelectedMenu] = useState('business');
+  const [selectedMenu, setSelectedMenu] = useState('News');
   const [searchResults, setSearchResults] = useState([]);
   const [menuArticles, setMenuArticles] = useState([]);
   const [articles, setArticles] = useState([]);
@@ -66,7 +53,7 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=c4c588b1848f44c8a6f61487fee4b733`);
+        const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
         if (response.ok) {
           const data = await response.json();
           setArticles(data.articles);
@@ -81,110 +68,113 @@ export const DashBoard = () => {
     fetchNews();
   }, []);
 
-  // Search
-  
+  //search
   const handleSearch = async () => {
     if (searchTerm.trim() === '') {
-      setSearchResults([]);
-      setSelectedMenu('business'); // Reset selected menu to 'business'
+      setSearchResults([]); // Reset search results if search term is empty
+      setSelectedMenu('News'); // Reset selected menu to 'News'
       return;
     }
   
     try {
-      const snapshot = await firestore.collection('news')
-                                      .where('content', '>=', searchTerm)
-                                      .where('content', '<=', searchTerm + '\uf8ff')
-                                      .get();
-  
-      const searchResults = snapshot.docs.map(doc => doc.data());
-      setSearchResults(searchResults);
+      const response = await fetch(`https://newsapi.org/v2/everything?qInTitle=${encodeURIComponent(searchTerm)}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+      if (response.ok) {
+        const data = await response.json();
+        setSearchResults(data.articles);
+      } else {
+        console.error('Failed to fetch news');
+      }
     } catch (error) {
-      console.error('Error searching news:', error);
+      console.error('Error fetching news:', error);
     }
   };
+  
 
-  // Menu
-  useEffect(() => {
-    const fetchMenuArticles = async () => {
-      try {
-        const response = await fetch(`https://newsapi.org/v2/top-headlines?country=us&category=${selectedMenu}&apiKey=c4c588b1848f44c8a6f61487fee4b733`);
-        if (response.ok) {
-          const data = await response.json();
-          setMenuArticles(data.articles);
-        } else {
-          console.error('Failed to fetch menu articles');
-        }
-      } catch (error) {
-        console.error('Error fetching menu articles:', error);
+  //menu
+  useEffect(() => {const fetchMenuArticles = async () => {
+    try {
+      const response = await fetch(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+      if (response.ok) {
+        const data = await response.json();
+        setMenuArticles(data.articles);
+      } else {
+        console.error('Failed to fetch menu articles');
       }
-    };
+    } catch (error) {
+      console.error('Error fetching menu articles:', error);
+    }
+  };  
 
-    fetchMenuArticles();
-  }, [selectedMenu]);
+  fetchMenuArticles();
+}, [selectedMenu]);
 
-  const handleMenuClick = (menu) => {
-    setSelectedMenu(menu);
-  };
+const handleMenuClick = (menu) => {
+  setSelectedMenu(menu); // Update selected menu
+};
 
-  // Image
-  const images = [img, img1, img2, img3, img4, img6, img7];
-  const [currentIndex, setCurrentIndex] = useState(0);
+// img
+const images = [img, img1, img2, img3, img4, img6, img7];
+const [currentIndexImg, setCurrentIndexImg] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
-    }, 1300); // Set 1.3 seconds
+useEffect(() => {
+  const interval = setInterval(() => {
+    setCurrentIndexImg(prevIndex => (prevIndex + 1) % images.length);
+  }, 1300); // set 1.3 seconds
 
-    return () => clearInterval(interval);
-  }, [images.length]);
+  return () => clearInterval(interval);
+}, [images.length]);
 
-  return (
-    <>
-      <div className='header'>
-        <img src={logo} alt="Logo" className="logo" />
-        <h1>Welcome to my Website</h1>
-      </div>
+return (
+  <>
+    <div className='header'>
+      <img src={logo} alt="Logo" className="logo" />
+      <h1>Welcome to my Website</h1>
+    </div>
 
-      <div className='image-container'>
-        {images.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Image ${index + 1}`}
-            className={index === currentIndex ? 'active' : ''}
-            style={{ transform: `translateX(${(index - currentIndex) * 100}%)` }}
-          />
-        ))}
-      </div>
-
-      <div className="container">
-        <div className="search">
-          <div className="search-input">
-            <input type="text" placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-          </div>
-          <div className="search-button">
-            <button onClick={handleSearch}>Search</button>
-          </div>
+    <div className='image-container'>
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={`Image ${index + 1}`}
+          className={index === currentIndexImg ? 'active' : ''}
+          style={{ transform: `translateX(${(index - currentIndexImg) * 100}%)` }}
+        />
+      ))}
+    </div>
+    <b>
+    <div className="container">
+      <div className="search">
+        <div className="search-input">
+          <input type="text" placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
-        <div className="menu">
-          <ul>
-            <li><a href="#" onClick={() => handleMenuClick('business')}>News</a></li>
-            <li><a href="#" onClick={() => handleMenuClick('technology')}>Worlds</a></li>
-            <li><a href="#" onClick={() => handleMenuClick('health')}>Kdramas</a></li>
-            <li><a href="#" onClick={() => handleMenuClick('science')}>Healths</a></li>
-            <li><a href="#" onClick={() => handleMenuClick('sports')}>Educations</a></li>
-          </ul>
+        <div className="search-button">
+          <button onClick={handleSearch}>Search</button>
         </div>
       </div>
-
-      <div className="content">
-        <div className="articles">
-          {searchResults.length > 0 ? (
-            searchResults.map((article, index) => (
-              <div key={index} className="article">
-                <h2>{article.title}</h2>
-                <p>{article.description}</p>
-                {article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
+      <div className="menu">
+        <ul>
+          <li><a href="#" onClick={() => handleMenuClick('News')}>News</a></li>
+          <li><a href="#" onClick={() => handleMenuClick('Worlds')}>Worlds</a></li>
+          <li><a href="#" onClick={() => handleMenuClick('Kdramas')}>Kdramas</a></li>
+          <li><a href="#" onClick={() => handleMenuClick('Healths')}>Healths</a></li>
+          <li><a href="#" onClick={() => handleMenuClick('Educations')}>Educations</a></li>
+        </ul>
+      </div>
+    </div>
+    </b>
+    <div className='last'> 
+      <p>
+        Last News
+      </p>
+    </div>
+    <div className="content">
+      <div className="articles">
+        {searchResults.length > 0 ? (
+          searchResults.map((article, index) => (
+            <div key={index} className="article">
+              <h2>{article.title}</h2>
+              <p>{article.description}</p>{article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
                 <button className="read-more-button">
                   <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">See more</a>
                 </button>

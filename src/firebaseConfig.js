@@ -23,15 +23,11 @@ export const app = initializeApp(firebaseConfig);
 export const database = getAuth(app);
 export const analytics = getAnalytics(app);
 
-//setup google
+// Setup Google
 export const provider = new GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');//cho phep doc danh ba gg
-const auth = getAuth(); //cung cap Firebase SDK
-auth.languageCode = 'it';//gui tin nhan xac thuc 
+provider.addScope('https://www.googleapis.com/auth/contacts.readonly'); // Cho phép đọc danh bạ Google
+const auth = getAuth(app); // Cung cấp Firebase SDK
+auth.languageCode = 'it'; // Đặt ngôn ngữ cho tin nhắn xác thực
 // provider.setCustomParameters({
 //   'login_hint': 'nkockik@gmail.com'
 // });
-
-
-
-// Initialize Firebase Authentication and get a reference to the service
