@@ -91,19 +91,20 @@ export const DashBoard = () => {
   
 
   //menu
-  useEffect(() => {const fetchMenuArticles = async () => {
-    try {
-      const response = await fetch(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
-      if (response.ok) {
-        const data = await response.json();
-        setMenuArticles(data.articles);
-      } else {
-        console.error('Failed to fetch menu articles');
+  useEffect(() => {
+    const fetchMenuArticles = async () => {
+      try {
+        const response = await fetch(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+        if (response.ok) {
+          const data = await response.json();
+          setMenuArticles(data.articles);
+        } else {
+          console.error('Failed to fetch menu articles');
+        }
+      } catch (error) {
+        console.error('Error fetching menu articles:', error);
       }
-    } catch (error) {
-      console.error('Error fetching menu articles:', error);
-    }
-  };  
+    };
 
   fetchMenuArticles();
 }, [selectedMenu]);
