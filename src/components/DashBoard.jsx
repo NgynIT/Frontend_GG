@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './DashBoard.css';
 import logo from './img/logo-bao-moi.png';
+import axios from 'axios';
 
 import img from './img/img.jpg';
 import img1 from './img/img1.jpg';
@@ -53,10 +54,9 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=apple&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
-        if (response.ok) {
-          const data = await response.json();
-          setArticles(data.articles);
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=apple&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+        if (response.status === 200) {
+          setArticles(response.data.articles);
         } else {
           console.error('Failed to fetch news');
         }
@@ -77,10 +77,9 @@ export const DashBoard = () => {
     }
   
     try {
-      const response = await fetch(`https://newsapi.org/v2/everything?qInTitle=${encodeURIComponent(searchTerm)}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
-      if (response.ok) {
-        const data = await response.json();
-        setSearchResults(data.articles);
+      const response = await axios.get(`https://newsapi.org/v2/everything?qInTitle=${encodeURIComponent(searchTerm)}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+      if (response.status === 200) {
+        setSearchResults(response.data.articles);
       } else {
         console.error('Failed to fetch news');
       }
@@ -94,10 +93,9 @@ export const DashBoard = () => {
   useEffect(() => {
     const fetchMenuArticles = async () => {
       try {
-        const response = await fetch(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
-        if (response.ok) {
-          const data = await response.json();
-          setMenuArticles(data.articles);
+        const response = await axios.get(`https://newsapi.org/v2/everything?q=${selectedMenu}&from=2024-03-18&to=2024-03-18&sortBy=popularity&apiKey=242da07b4b7e4b7c8a7ea048be11cf3e`);
+        if (response.status === 200) {
+          setMenuArticles(response.data.articles);
         } else {
           console.error('Failed to fetch menu articles');
         }
@@ -113,88 +111,88 @@ export const DashBoard = () => {
     setSelectedMenu(menu); // Update selected menu
   };
 
-// img
-const images = [img, img1, img2, img3, img4, img6, img7];
-const [currentIndexImg, setCurrentIndexImg] = useState(0);
+  // img
+  const images = [img, img1, img2, img3, img4, img6, img7];
+  const [currentIndexImg, setCurrentIndexImg] = useState(0);
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setCurrentIndexImg(prevIndex => (prevIndex + 1) % images.length);
-  }, 1300); // set 1.3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndexImg(prevIndex => (prevIndex + 1) % images.length);
+    }, 1300); // set 1.3 seconds
 
-  return () => clearInterval(interval);
-}, [images.length]);
+    return () => clearInterval(interval);
+  }, [images.length]);
 
-return (
-  <>
-    <div className='header'>
-      <img src={logo} alt="Logo" className="logo" />
-      <h1>Welcome to my Website</h1>
-    </div>
+  return (
+    <>
+      <div className='header'>
+        <img src={logo} alt="Logo" className="logo" />
+        <h1>Welcome to my Website</h1>
+      </div>
 
-    <div className='image-container'>
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Image ${index + 1}`}
-          className={index === currentIndexImg ? 'active' : ''}
-          style={{ transform: `translateX(${(index - currentIndexImg) * 100}%)` }}
-        />
-      ))}
-    </div>
-    <b>
-    <div className="container">
-      <div className="search">
-        <div className="search-input">
-          <input type="text" placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <div className='image-container'>
+        {images.map((image, index) => (
+          <img
+            key={index}
+            src={image}
+            alt={`Image ${index + 1}`}
+            className={index === currentIndexImg ? 'active' : ''}
+            style={{ transform: `translateX(${(index - currentIndexImg) * 100}%)` }}
+          />
+        ))}
+      </div>
+      <b>
+      <div className="container">
+        <div className="search">
+          <div className="search-input">
+            <input type="text" placeholder='Search...' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+          </div>
+          <div className="search-button">
+            <button onClick={handleSearch}>Search</button>
+          </div>
         </div>
-        <div className="search-button">
-          <button onClick={handleSearch}>Search</button>
+        <div className="menu">
+          <ul>
+            <li><a href="#" onClick={() => handleMenuClick('News')}>News</a></li>
+            <li><a href="#" onClick={() => handleMenuClick('Worlds')}>Worlds</a></li>
+            <li><a href="#" onClick={() => handleMenuClick('Kdramas')}>Kdramas</a></li>
+            <li><a href="#" onClick={() => handleMenuClick('Healths')}>Healths</a></li>
+            <li><a href="#" onClick={() => handleMenuClick('Educations')}>Educations</a></li>
+          </ul>
         </div>
       </div>
-      <div className="menu">
-        <ul>
-          <li><a href="#" onClick={() => handleMenuClick('News')}>News</a></li>
-          <li><a href="#" onClick={() => handleMenuClick('Worlds')}>Worlds</a></li>
-          <li><a href="#" onClick={() => handleMenuClick('Kdramas')}>Kdramas</a></li>
-          <li><a href="#" onClick={() => handleMenuClick('Healths')}>Healths</a></li>
-          <li><a href="#" onClick={() => handleMenuClick('Educations')}>Educations</a></li>
-        </ul>
+      </b>
+      <div className='last'> 
+        <p>
+          Last News
+        </p>
       </div>
-    </div>
-    </b>
-    <div className='last'> 
-      <p>
-        Last News
-      </p>
-    </div>
-    <div className="content">
-      <div className="articles">
-        {searchResults.length > 0 ? (
-          searchResults.map((article, index) => (
-            <div key={index} className="article">
-              <h2>{article.title}</h2>
-              <p>{article.description}</p>{article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
-                <button className="read-more-button">
-                  <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">See more</a>
-                </button>
-              </div>
-            ))
-          ) : (
-            menuArticles.map((article, index) => (
+      <div className="content">
+        <div className="articles">
+          {searchResults.length > 0 ? (
+            searchResults.map((article, index) => (
               <div key={index} className="article">
                 <h2>{article.title}</h2>
-                <p>{article.description}</p>
-                {article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
-                <button className="read-more-button">
-                  <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">See more</a>
-                </button>
-              </div>
-            ))
-          )}
+                <p>{article.description}</p>{article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
+                  <button className="read-more-button">
+                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">See more</a>
+                  </button>
+                </div>
+              ))
+            ) : (
+              menuArticles.map((article, index) => (
+                <div key={index} className="article">
+                  <h2>{article.title}</h2>
+                  <p>{article.description}</p>
+                  {article.urlToImage && <img src={article.urlToImage} alt={article.title} className="article-image" />}
+                  <button className="read-more-button">
+                    <a href={article.url} target="_blank" rel="noopener noreferrer" className="read-more">See more</a>
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
 };
