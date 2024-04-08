@@ -32,7 +32,7 @@ export const DashBoard = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % carouselData.length);
-    }, 1000); // Rotate every 1 seconds
+    }, 1000); // Rotate every 1 second
 
     return () => clearInterval(interval);
   }, [carouselData.length]); // Update when carouselData.length changes
@@ -106,12 +106,12 @@ export const DashBoard = () => {
       }
     };
 
-  fetchMenuArticles();
-}, [selectedMenu]);
+    fetchMenuArticles();
+  }, [selectedMenu]);
 
-const handleMenuClick = (menu) => {
-  setSelectedMenu(menu); // Update selected menu
-};
+  const handleMenuClick = (menu) => {
+    setSelectedMenu(menu); // Update selected menu
+  };
 
 // img
 const images = [img, img1, img2, img3, img4, img6, img7];
