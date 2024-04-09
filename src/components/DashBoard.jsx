@@ -26,21 +26,6 @@ export const DashBoard = () => {
     }
   }, [test, dispatch]);
 
-  // Define carouselData
-  const carouselData = [img, img1, img2, img3, img4, img6, img7];
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex(prevIndex => (prevIndex + 1) % carouselData.length);
-    }, 1000); // Rotate every 1 second
-
-    return () => clearInterval(interval);
-  }, [carouselData.length]); // Update when carouselData.length changes
-
-  // Remainder of your component code...
-
-  //api news
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMenu, setSelectedMenu] = useState('News');
   const [searchResults, setSearchResults] = useState([]);
@@ -68,11 +53,10 @@ export const DashBoard = () => {
     fetchNews();
   }, []);
 
-  //search
   const handleSearch = async () => {
     if (searchTerm.trim() === '') {
-      setSearchResults([]); // Reset search results if search term is empty
-      setSelectedMenu('News'); // Reset selected menu to 'News'
+      setSearchResults([]);
+      setSelectedMenu('News');
       return;
     }
   
@@ -89,7 +73,6 @@ export const DashBoard = () => {
   };
   
 
-  //menu
   useEffect(() => {
     const fetchMenuArticles = async () => {
       try {
@@ -106,10 +89,6 @@ export const DashBoard = () => {
 
     fetchMenuArticles();
   }, [selectedMenu]);
-
-  const handleMenuClick = (menu) => {
-    setSelectedMenu(menu); // Update selected menu
-  };
 
   // img
   const images = [img, img1, img2, img3, img4, img6, img7];
